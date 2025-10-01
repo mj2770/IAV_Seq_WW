@@ -36,7 +36,7 @@ We evaluated their performance across spike-in mixtures, wastewater extracts, an
 
 ### 3. Read Mapping
 - Aligners:  
-  - [Bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/index.shtml) for Illumina  
+  - [Bowtie2](https://github.com/BenLangmead/bowtie2) for Illumina  
   - ONT basecalled reads for Nanopore  
 - Post-processing:  
   - Reformat ([BBMap](https://jgi.doe.gov/data-and-tools/bbtools/)): remove reads with >5 mismatches/indels  
@@ -44,7 +44,7 @@ We evaluated their performance across spike-in mixtures, wastewater extracts, an
 
 ### 4. Variant Calling & Consensus
 - [Samtools mpileup](http://www.htslib.org/doc/samtools.html)  
-- [iVar](https://andersen-lab.github.io/ivar/html/): variant calling & consensus generation  
+- [iVar](https://github.com/andersen-lab/ivar): variant calling & consensus generation  
 - [BCFtools](http://samtools.github.io/bcftools/): VCF processing  
 
 ### 5. Coverage & Sensitivity Analysis
