@@ -59,4 +59,4 @@ We evaluated their performance across spike-in mixtures, wastewater extracts, an
 - Decay/extraction effects: IP vs PMG concentration methods  
 
 ### 7. Economic Analysis
-- Scripts in `analysis/cost_analysis.R` summarize reagent, sequencing, and labor costs across methods.  
+- Scripts in `analysis/cost_analysis.py` summarize reagent, sequencing, and labor costs across methods.  
