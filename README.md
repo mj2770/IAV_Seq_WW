@@ -49,7 +49,7 @@ We evaluated their performance across spike-in mixtures, wastewater extracts, an
 
 ### 5. Coverage & Sensitivity Analysis
 - Compute: coverage breadth (%) and coverage depth (RPKM)  
-- Normalization equations implemented in `analysis/coverage_metrics.py`  
+- Normalization equations implemented in `analysis/IAV_data_analysis.py`  
 - Visualization with custom R/Python plotting scripts  
 
 ### 6. Comparative Analyses
@@ -59,4 +59,4 @@ We evaluated their performance across spike-in mixtures, wastewater extracts, an
 - Decay/extraction effects: IP vs PMG concentration methods  
 
 ### 7. Economic Analysis
-- Scripts in `analysis/cost_analysis.py` summarize reagent, sequencing, and labor costs across methods.  
+- Table in `analysis/cost.csv` summarize reagent, sequencing, and labor costs across methods.  
