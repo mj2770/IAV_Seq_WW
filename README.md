@@ -49,7 +49,7 @@ We evaluated their performance across spike-in mixtures, wastewater extracts, an
 
 ### 5. Coverage & Sensitivity Analysis
 - Compute: coverage breadth (%) and coverage depth (RPKM)  
-- Normalization equations implemented in `analysis/IAV_data_analysis.py`  
+- Normalization equations implemented in `iav_analysis_data_summary.ipynb`  
 - Visualization with custom R/Python plotting scripts  
 
 ### 6. Comparative Analyses
