@@ -55,7 +55,4 @@ We evaluated their performance across spike-in mixtures, wastewater extracts, an
 - Coverage comparison across spike-in levels (S1–S3)  
 - Sensitivity: correlation of input copies (dPCR) vs sequencing depth  
 - Segment-level bias: uniformity across IAV genome segments  
-- Decay/extraction effects: IP vs PMG concentration methods  
-
-### 7. Economic Analysis
-- Table in `analysis/cost.csv` summarize reagent, sequencing, and labor costs across methods.  
+- Decay/extraction effects: IP vs PMG concentration methods   
