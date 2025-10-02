@@ -51,17 +51,15 @@ created 12/28/2024 by Minxi Jiang
 #    3.6 Generate the ivar variants calling file with filtering options
 ####################################################################
 ####################################################################
-# Source bashrc file or set the PATH to make any functions or variables defined
-# available in the current script
-
+# Set the PATH 
 export PATH=/p/lustre1/preview/seq_software/sambamba/:/p/lustre1/preview/seq_software/bbmap:/p/lustre1/preview/seq_software/:/p/lustre1/preview/seq_software/bowtie2-2.5.1/:/p/lustre1/preview/seq_software/samtools-1.17/:$PATH
-
 ####################################################################
 # STEP 1: QC trim
 
 # Define directories
 INPUT_DIR=/p/vast1/preview/241226_twist_tiled_ucb_ww_IAV/sample_4
 OUT_DIR=/p/lustre1/preview/IAV_seq_data/sample_4
+# Optional: filter the human reads
 # Ref=/p/lustre1/preview/seq_data/output/STEP_1_1_Human_scrubber/Human_genome_db
 
 # Create subdirectories for each step
@@ -162,7 +160,7 @@ ref_genomes="/p/lustre1/preview/influenza/Spike_virus_genomes/same_length/remove
 input="/p/lustre1/preview/IAV_seq_data/twist_IAV_full/step_1_fastp"
 output="/p/lustre1/preview/IAV_seq_data/twist_IAV_full/STEP_2_bowtie2_nondedup"
 
-# Create Bowtie2 index for the reference genome
+# STEP 2.1 Create Bowtie2 index for the reference genome
 bowtie2-build $ref_genomes ${input}/ref_genomes
 samtools faidx $ref_genomes
 
@@ -174,20 +172,20 @@ for f in ${input}/*R1_001_filt.fastq.gz; do
   # Extract the base name for the reads
   read_base=$(basename $f _L001_R1_001_filt.fastq.gz)
 
-  # Align paired-end reads to the reference genome
+  # STEP 2.2 Align paired-end reads to the reference genome
   bowtie2 -p 100 -x ${input}/ref_genomes --no-unal --no-discordant --no-mixed -1 $f -2 $r -S ${output}/${read_base}.sam
 
-  # Convert SAM to BAM, sort, and index BAM file
+  # STEp 2.3 Convert SAM to BAM, sort, and index BAM file
   samtools view -bS ${output}/${read_base}.sam | samtools sort -o ${output}/${read_base}.sorted.bam
   samtools index ${output}/${read_base}.sorted.bam
 
   # Clean up the SAM file to save space
   rm ${output}/${read_base}.sam
 
-  # Filter mapped paired-end reads with fewer than 5 edits
+  # STEP 2.4 Filter mapped paired-end reads with fewer than 5 edits
   reformat.sh in=${output}/${read_base}.sorted.bam out=${output}/${read_base}.filtered.bam editfilter=5
 
- # Filter, discard unpaired reads, and sort the BAM file
+ # STEP 2.5 Filter, discard unpaired reads, and sort the BAM file
   samtools view -h -f 1 -b ${output}/${read_base}.filtered.bam | \
   samtools sort -o ${output}/${read_base}.filtered.paired.sorted.bam
 
@@ -204,32 +202,31 @@ input_dir="/p/lustre1/preview/IAV_seq_data/twist_IAV_full/STEP_2_bowtie2_nondedu
 output_dir="/p/lustre1/preview/IAV_seq_data/twist_IAV_full/STEP_3_depth_breadth_nondedup/"
 ref="/p/lustre1/preview/influenza/Spike_virus_genomes/same_length/remove_gaps/cut_ref_S1S2S3.fasta"
 
-
 # Index the reference genome
 samtools faidx "$ref"
 
 # Loop through BAM files in the input directory
 for sorted_bam_file in "$input_dir"*.filtered.paired.sorted.bam; do
 
-    # STEP 1: Index the sorted BAM file
+    # STEP 3.1: Index the sorted BAM file
     samtools index "$sorted_bam_file" || { echo "Error: Failed to index BAM file $sorted_bam_file"; exit 1; }
 
     # Extract the basename of the BAM file for output file naming
     basename=$(basename "$sorted_bam_file" .filtered.paired.sorted.bam)
 
-    # STEP 2: Generate the depth file
+    # STEP 3.2: Generate the depth file
     echo "Generating coverage depth file for $basename..."
     samtools depth -a "$sorted_bam_file" > "${output_dir}${basename}_coverage_depth.txt" || { echo "Error: Failed to generate depth file for $basename"; exit 1; }
 
-    # STEP 3: Generate the coverage breadth file with a minimum read length of 75
+    # STEP 3.3: Generate the coverage breadth file with a minimum read length of 75
     echo "Generating coverage breadth file with minimum read length of 75 for $basename..."
     samtools coverage -l 75 "$sorted_bam_file" > "${output_dir}${basename}_coverage_breadth.txt" || { echo "Error: Failed to generate coverage breadth file for $basename"; exit 1; }
 
-    # STEP 4: Generate the mapping summary
+    # STEP 3.4: Generate the mapping summary
     echo "Generating mapping summary for $basename..."
     samtools stats "$sorted_bam_file" > "${output_dir}${basename}_stats.txt" || { echo "Error: Failed to generate stats for $basename"; exit 1; }
 
-    # STEP 5: Run bcftools mpileup to generate a VCF file
+    # STEP 3.5: Run bcftools mpileup to generate a VCF file
     echo "Generating VCF file using bcftools for $basename..."
     vcf_output_file="${output_dir}${basename}_vcf.gz"
 
@@ -251,7 +248,7 @@ for sorted_bam_file in "$input_dir"*.filtered.paired.sorted.bam; do
     # bcftools consensus -f "$ref" "$output_dir/filtered.vcf.gz" \
     #     > "$output_dir/consensus.fasta" || { echo "Error: Failed to generate consensus sequence"; exit 1; }
 
-    # STEP 6: Run samtools mpileup and iVar for variant calling
+    # STEP 3.6: Run samtools mpileup and iVar for variant calling
     # echo "Calling variants with iVar for $basename..."
     # ivar_output_file="${output_dir}${basename}_ivar_call.txt"
 
