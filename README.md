@@ -1,6 +1,6 @@
 # One Health Genomic Surveillance Tools for Influenza A Virus in Wastewater
 This repository contains the Probe/Primer design pipelines, sequencing data analysis pipelines, and other documentation associated with the study:
-“Developing and Benchmarking One Health Genomic Surveillance Tools for Influenza A Virus in Wastewater” [(Jiang et al., 2025)](https://doi.org/10.1101/2025.09.19.676942)
+[“Developing and Benchmarking One Health Genomic Surveillance Tools for Influenza A Virus in Wastewater”](https://doi.org/10.1101/2025.09.19.676942)
 ## 👥 Contributions
 - **Rose Kantor, Minxi Jiang** – pipeline design and processing 
 
