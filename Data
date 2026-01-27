@@ -1,3 +1,4 @@
-Data/README.md
+data/
+  └── README.md
 This folder contains input data used in the analysis.
 Raw sequencing data are not included.
