@@ -2,7 +2,7 @@
 This repository contains the Probe/Primer design pipelines, sequencing data analysis pipelines, and other documentation associated with the study:
 [“Developing and Benchmarking One Health Genomic Surveillance Tools for Influenza A Virus in Wastewater”](https://doi.org/10.1101/2025.09.19.676942)
 ## 👥 Contributions
-- **Rose Kantor, Minxi Jiang** – pipeline design and processing 
+- **Minxi Jiang, Rose Kantor** – pipeline design and processing 
 
 ## 📄 Project Overview
 
@@ -15,11 +15,16 @@ We benchmarked four targeted enrichment methods suited for whole-genome sequenci
 
 We evaluated their performance across spike-in mixtures, wastewater extracts, and concentration/extraction methods.
 
+## Repository structure
+- data/: input data (raw data not included)
+- scripts/: sequencing reads analysis scripts
+- results/: python scripts for data analysis and plotting
+
 ## 🔬 Pipeline Overview
 
 ### 1. Probe & Primer Design
 - **Probe panels**  
-  - Custom IAV probes designed using [Syotti](https://github.com/jnalanko/syotti) and in-house scripts  
+  - Custom IAV probes designed using [Syotti](https://github.com/jnalanko/syotti) and in-house scripts (under folder script Syotti_probe_design.sh)
   - Commercial probe panel: Twist Comprehensive Viral Research Panel (CVRP)  
 - **Primers**  
   - HA-segment tiled amplicons designed with [PriMux](https://pubmed.ncbi.nlm.nih.gov/25157264/)  
@@ -55,4 +60,6 @@ We evaluated their performance across spike-in mixtures, wastewater extracts, an
 - Coverage comparison across spike-in levels (S1–S3)  
 - Sensitivity: correlation of input copies (dPCR) vs sequencing depth  
 - Segment-level bias: uniformity across IAV genome segments  
-- Decay/extraction effects: IP vs PMG concentration methods   
+- Decay/extraction effects: IP vs PMG concentration methods
+
+Notes: For each method, we developed an overall sequencing data analysis script that combines all of the steps described above. These scripts are located in the scripts/ folder and are named according to each method (e.g., Tiled_amplicon.sh).
