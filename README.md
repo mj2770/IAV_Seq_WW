@@ -15,11 +15,6 @@ We benchmarked four targeted enrichment methods suited for whole-genome sequenci
 
 We evaluated their performance across spike-in mixtures, wastewater extracts, and concentration/extraction methods.
 
-## Repository structure
-- data/: input data for plotting. All raw sequencing data for this project have been deposited in the NCBI sequence Read Archive (SRA) under Bioproject ID: PRJNA1336326.
-- scripts/: sequencing reads analysis scripts
-- results/: python scripts for data analysis and plotting
-
 ## 🔬 Pipeline Overview
 
 ### 1. Probe & Primer Design
